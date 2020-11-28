@@ -4,9 +4,12 @@
     <title>Electron</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <style>
-        img {
-            width: 800px;
-            width: 600px;
+        #screenshotContainer {
+            position: relative;
+        }
+
+        #screenshotContainer canvas, #screenshot {
+            position: absolute
         }
 
         video {
@@ -15,25 +18,34 @@
             left: -10000px;
         }
 
-        .likert li {
+        .question {
+            clear: left;
+            display: block
+        }
+
+        .likertScale li {
             float: left;
             list-style-type: none;
         }
+
+        #notNow {
+            clear: left;
+            display: block;
+        }
+
     </style>
 </head>
 <body style="background: white;">
 
-    <!-- <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>. -->
 
     <video></video>
-    <img id='screenshot'>
+    <div id="screenshotContainer">
+        <img id="screenshot">
+    </div>
 
-    <div id="creativeLikert">
+    <div id="creativeLikert" class="question">
         <p>How <b>creative</b> are you feeling?</p>
-        <ul class="likert">
+        <ul class="likertScale">
             <li> Not at all </li>
             <li><input type="radio" name="creative" value="1" /></li>
             <li><input type="radio" name="creative" value="2" /></li>
@@ -49,9 +61,9 @@
           </ul>
     </div>
 
-    <div id="creativeLikert">
+    <div id="stressedLikert" class="question">
         <p>How <b>stressed</b> are you feeling?</p>
-        <ul class="likert">
+        <ul class="likertScale">
             <li> Not at all </li>
             <li><input type="radio" name="stressed" value="1" /></li>
             <li><input type="radio" name="stressed" value="2" /></li>
@@ -66,8 +78,8 @@
             <li> Very </li>
           </ul>
     </div>
-    
-    <button id='submitData'>Submit</button>
+
+    <button id='notNow'>Not now</button>
     <script> require('./renderer.js')</script>
 </body>
 </html>
