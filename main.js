@@ -11,7 +11,47 @@ function createWindow () {
 
   win.loadFile('index.html')
   win.webContents.openDevTools()
+
+
+  let tray = null;
+    win.on('minimize', function (event) {
+        event.preventDefault();
+        win.hide();
+        tray = createTray();
+    });
+
+    win.on('restore', function (event) {
+        win.show();
+        tray.destroy();
+    });
+   
+    return win;
 }
+
+function createTray() {
+  let appIcon = new Tray('/path/to/my/icon');
+  const contextMenu = Menu.buildFromTemplate([
+      {
+          label: 'Show', click: function () {
+              mainWindow.show();
+          }
+      },
+      {
+          label: 'Exit', click: function () {
+              app.isQuiting = true;
+              app.quit();
+          }
+      }
+  ]);
+
+  appIcon.on('double-click', function (event) {
+      mainWindow.show();
+  });
+  appIcon.setToolTip('Tray Tutorial');
+  appIcon.setContextMenu(contextMenu);
+  return appIcon;
+}
+
 
 app.whenReady().then(createWindow)
 

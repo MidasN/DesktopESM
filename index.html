@@ -3,14 +3,71 @@
     <meta charset="UTF-8">
     <title>Electron</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <style>
+        img {
+            width: 800px;
+            width: 600px;
+        }
+
+        video {
+            position: absolute;
+            top: -10000px;
+            left: -10000px;
+        }
+
+        .likert li {
+            float: left;
+            list-style-type: none;
+        }
+    </style>
 </head>
 <body style="background: white;">
-    <h1>Hello World!</h1>
+
+    <!-- <h1>Hello World!</h1>
     We are using node <script>document.write(process.versions.node)</script>,
     Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    and Electron <script>document.write(process.versions.electron)</script>. -->
 
     <video></video>
+    <img id='screenshot'>
+
+    <div id="creativeLikert">
+        <p>How <b>creative</b> are you feeling?</p>
+        <ul class="likert">
+            <li> Not at all </li>
+            <li><input type="radio" name="creative" value="1" /></li>
+            <li><input type="radio" name="creative" value="2" /></li>
+            <li><input type="radio" name="creative" value="3" /></li>
+            <li><input type="radio" name="creative" value="4" /></li>
+            <li><input type="radio" name="creative" value="5" /></li>
+            <li><input type="radio" name="creative" value="6" /></li>
+            <li><input type="radio" name="creative" value="7" /></li>
+            <li><input type="radio" name="creative" value="8" /></li>
+            <li><input type="radio" name="creative" value="9" /></li>
+            <li><input type="radio" name="creative" value="10" /></li>
+            <li> Very </li>
+          </ul>
+    </div>
+
+    <div id="creativeLikert">
+        <p>How <b>stressed</b> are you feeling?</p>
+        <ul class="likert">
+            <li> Not at all </li>
+            <li><input type="radio" name="stressed" value="1" /></li>
+            <li><input type="radio" name="stressed" value="2" /></li>
+            <li><input type="radio" name="stressed" value="3" /></li>
+            <li><input type="radio" name="stressed" value="4" /></li>
+            <li><input type="radio" name="stressed" value="5" /></li>
+            <li><input type="radio" name="stressed" value="6" /></li>
+            <li><input type="radio" name="stressed" value="7" /></li>
+            <li><input type="radio" name="stressed" value="8" /></li>
+            <li><input type="radio" name="stressed" value="9" /></li>
+            <li><input type="radio" name="stressed" value="10" /></li>
+            <li> Very </li>
+          </ul>
+    </div>
+    
+    <button id='submitData'>Submit</button>
     <script> require('./renderer.js')</script>
 </body>
 </html>
