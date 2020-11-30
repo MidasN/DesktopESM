@@ -1,14 +1,10 @@
 const fs = require('fs')
-const { desktopCapturer } = require('electron')
-const { remote } = require('electron')
-const { start } = require('repl')
-
+const { desktopCapturer, ipcRenderer, remote } = require('electron')
 const setupData = fs.readFileSync('./data/participantSetup.json')
 const participantId = JSON.parse(setupData).participantId
 
 // TAKING SCREENSHOT
 // Video stream
-
 desktopCapturer.getSources({ types: ['window', 'screen'] }).then(async sources => {
   console.log(sources)
   let screen = sources[0]
@@ -39,6 +35,8 @@ desktopCapturer.getSources({ types: ['window', 'screen'] }).then(async sources =
     video.onloadedmetadata = function(e) {
       video.play();
       createScreenshot()
+      const currentWindow = remote.getCurrentWindow()
+      currentWindow.show()
     } 
   }
 
@@ -63,6 +61,8 @@ desktopCapturer.getSources({ types: ['window', 'screen'] }).then(async sources =
     document.querySelector("#screenshotContainer").append(canvasOverlay)
     
     // Annotate image
+    canvasOverlay.addEventListener('click', addCircle)
+    
     function addCircle(e) {
       console.log('canvas clicked')
       let c = canvasOverlay.getContext('2d');
@@ -70,15 +70,12 @@ desktopCapturer.getSources({ types: ['window', 'screen'] }).then(async sources =
       let x = e.clientX - bounds.left;
       let y = e.clientY - bounds.top;
 
-      console.log(bounds, x, y)
-
       c.beginPath();
       c.arc(x,y,10,0,Math.PI*2,false);
       c.fillStyle ="red"
       c.fill();
     }
-
-    canvasOverlay.addEventListener('click', addCircle)
+    
 
     image.src = canvas.toDataURL()
     image.style.width = resizedWidth;
@@ -173,11 +170,12 @@ function saveData(skipped, screenshot, annotation, creativityScore, stressScore)
   });
 
   hide()
-  startCountdown()
+  sendMessageToMain()
 }
 
 function hide() {
   const currentWindow = remote.getCurrentWindow()
+  console.log(currentWindow)
   currentWindow.hide()
 }
 
@@ -186,21 +184,21 @@ let notNowButton = document.querySelector("#notNow");
 notNowButton.addEventListener('click', notNow);
 
 
-function startCountdown() {
-  // start the countdown for the next sampling
+function sendMessageToMain() {
+  ipcRenderer.send('sendMainMessage', {
+      message: 'start countdown'
+    });
 }
 
 // feature list:
-  // Work for two screens
+  // Test for two screens
+  // test across platforms
+  // dock icon
+  // styling
+  // setup screen?
+  // test across timezones
   
-  // run in background
-  // closing when clicked
-  // pop up with timing
-  
-  // setup screen: instructions
   // sending data
   // error log
   // installer
-
-// what if the app is being shown but not answered, and a new one is called??
 

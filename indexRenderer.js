@@ -1,4 +1,4 @@
-const { remote } = require('electron')
+const { ipcRenderer, remote } = require('electron')
 const fs = require('fs')
 
 let finishBtn = document.querySelector('#finishBtn')
@@ -22,9 +22,21 @@ function finishSetup() {
     });
   
     hide()
+    sendMessageToMain()
 }
 function hide() {
     const currentWindow = remote.getCurrentWindow()
     currentWindow.hide()
 }
 
+function sendMessageToMain() {
+    ipcRenderer.send('sendMainMessage', {
+        message: 'start countdown'
+      });
+}
+ 
+
+// ipcRenderer.on('sendRendererMessage', (event, props) => {
+//     console.log({event, props});
+// });
+  
