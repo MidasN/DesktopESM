@@ -1,8 +1,14 @@
 const fs = require('fs')
+const { desktopCapturer } = require('electron')
+const { remote } = require('electron')
+const { start } = require('repl')
+
+const setupData = fs.readFileSync('./data/participantSetup.json')
+const participantId = JSON.parse(setupData).participantId
 
 // TAKING SCREENSHOT
 // Video stream
-const { desktopCapturer } = require('electron')
+
 desktopCapturer.getSources({ types: ['window', 'screen'] }).then(async sources => {
   console.log(sources)
   let screen = sources[0]
@@ -89,20 +95,6 @@ desktopCapturer.getSources({ types: ['window', 'screen'] }).then(async sources =
   }
 
   
-
-// feature list:
-  // Work for two screens
-  
-  // run in background
-  // closing when clicked
-  // pop up with timing
-  
-  // setup screen: instructions
-  // sending data
-  // error log
-  // installer
-
-
 // APP INTERACTION
 let stressRadioButtons = document.querySelectorAll("#stressedLikert input")
 let creativityRadioButtons = document.querySelectorAll("#creativeLikert input")
@@ -123,19 +115,17 @@ stressRadioButtons.forEach((radioButton) => {
 
 function checkIfRadioButtonChecked(likert) {
   console.log('check radio buttons')
+
   likert.forEach((radioButton) => {
     if (radioButton.checked) {
       console.log('both checked')
-      saveData(true)
-      minimiseToTray()
+      getData()
       return
     }
   })
 }
 
-function saveData(includeScreenshot) {
-  let participantId = '0';
-
+function getData() {
   let creativityScore;
   let stressScore;
 
@@ -151,40 +141,66 @@ function saveData(includeScreenshot) {
       return
     }
   })
+  
+  let imageContainer = document.querySelector('#screenshot')
+  let imageDataBase64 = imageContainer.src.replace(/^data:image\/png;base64,/, "");
+  let annotationCanvas = document.querySelector('#screenshotContainer canvas');
+  let annotationCanvasData = annotationCanvas.toDataURL()
+  let annotationCanvasDataBase64 = annotationCanvasData.replace(/^data:image\/png;base64,/, "");
 
-  let time = Date.now()
-  let imageDataBase64;
-  let annotationCanvasDataBase64;
-  if (includeScreenshot) {
-    let imageContainer = document.querySelector('#screenshot')
-    imageDataBase64 = imageContainer.src.replace(/^data:image\/png;base64,/, "");
+  saveData(false, imageDataBase64, annotationCanvasDataBase64, creativityScore, stressScore)
+}
 
-    let annotationCanvas = document.querySelector('#screenshotContainer canvas');
-    let annotationCanvasData = annotationCanvas.toDataURL()
-    annotationCanvasDataBase64 = annotationCanvasData.src.replace(/^data:image\/png;base64,/, "");
-  }
+function notNow() {
+  saveData(true)
+}
+
+function saveData(skipped, screenshot, annotation, creativityScore, stressScore) {
+  const time = Date.now()
 
   let data = {
     "participantId": participantId,
-    "screenshot": imageDataBase64,
-    "annotation": annotationCanvasDataBase64,
+    "sampleTimestamp": time,
+    "skipped": skipped,
+    "screenshot": screenshot,
+    "annotation": annotation,
     "creativityScore": creativityScore,
     "stressScore": stressScore
   }
-
-  fs.writeFile('./data/'+participantId+time+'.json', JSON.stringify(data), 'utf8', (err) => {
+  fs.writeFile('./data/'+participantId+'-'+time+'.json', JSON.stringify(data), 'utf8', (err) => {
     if (err) throw err;
     console.log('The file has been saved!');
   });
+
+  hide()
+  startCountdown()
 }
 
-const { remote } = require('electron')
-function minimiseToTray() {
-  console.log(remote)
-  // BrowserWindow.getFocusedWindow().minimize();
+function hide() {
+  const currentWindow = remote.getCurrentWindow()
+  currentWindow.hide()
 }
 
 // Not now button
 let notNowButton = document.querySelector("#notNow");
-notNowButton.addEventListener('click', saveData(false));
+notNowButton.addEventListener('click', notNow);
+
+
+function startCountdown() {
+  // start the countdown for the next sampling
+}
+
+// feature list:
+  // Work for two screens
+  
+  // run in background
+  // closing when clicked
+  // pop up with timing
+  
+  // setup screen: instructions
+  // sending data
+  // error log
+  // installer
+
+// what if the app is being shown but not answered, and a new one is called??
 

@@ -1,0 +1,85 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Electron</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <style>
+        #screenshotContainer {
+            position: relative;
+        }
+
+        #screenshotContainer canvas, #screenshot {
+            position: absolute
+        }
+
+        video {
+            position: absolute;
+            top: -10000px;
+            left: -10000px;
+        }
+
+        .question {
+            clear: left;
+            display: block
+        }
+
+        .likertScale li {
+            float: left;
+            list-style-type: none;
+        }
+
+        #notNow {
+            clear: left;
+            display: block;
+        }
+
+    </style>
+</head>
+<body style="background: white;">
+
+
+    <video></video>
+    <div id="screenshotContainer">
+        <img id="screenshot">
+    </div>
+
+    <div id="creativeLikert" class="question">
+        <p>How <b>creative</b> are you feeling?</p>
+        <ul class="likertScale">
+            <li> Not at all </li>
+            <li><input type="radio" name="creative" value="1" /></li>
+            <li><input type="radio" name="creative" value="2" /></li>
+            <li><input type="radio" name="creative" value="3" /></li>
+            <li><input type="radio" name="creative" value="4" /></li>
+            <li><input type="radio" name="creative" value="5" /></li>
+            <li><input type="radio" name="creative" value="6" /></li>
+            <li><input type="radio" name="creative" value="7" /></li>
+            <li><input type="radio" name="creative" value="8" /></li>
+            <li><input type="radio" name="creative" value="9" /></li>
+            <li><input type="radio" name="creative" value="10" /></li>
+            <li> Very </li>
+          </ul>
+    </div>
+
+    <div id="stressedLikert" class="question">
+        <p>How <b>stressed</b> are you feeling?</p>
+        <ul class="likertScale">
+            <li> Not at all </li>
+            <li><input type="radio" name="stressed" value="1" /></li>
+            <li><input type="radio" name="stressed" value="2" /></li>
+            <li><input type="radio" name="stressed" value="3" /></li>
+            <li><input type="radio" name="stressed" value="4" /></li>
+            <li><input type="radio" name="stressed" value="5" /></li>
+            <li><input type="radio" name="stressed" value="6" /></li>
+            <li><input type="radio" name="stressed" value="7" /></li>
+            <li><input type="radio" name="stressed" value="8" /></li>
+            <li><input type="radio" name="stressed" value="9" /></li>
+            <li><input type="radio" name="stressed" value="10" /></li>
+            <li> Very </li>
+          </ul>
+    </div>
+
+    <button id='notNow'>Not now</button>
+    <script> require('./sampleRenderer.js')</script>
+</body>
+</html>
