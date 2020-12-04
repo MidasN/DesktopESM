@@ -19,13 +19,33 @@
         }
 
         .question {
+            text-align: center;
             clear: left;
-            display: block
+            display: block;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin:auto;
+            width: 50%;
+        }
+
+        .button {
+            background-color: #d4d4d4;
+            color: black;
+            box-shadow: 0 0.2rem 0.6rem 0 gray;
+            border-radius: 0;
+            text-align: center;
+            border:none;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            padding: 10px 20px 10px 20px;
+            
+
         }
 
         .likertScale li {
             float: left;
             list-style-type: none;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            text-align: center;
+            
         }
 
         #notNow {
@@ -60,7 +80,7 @@
             <li> Very </li>
           </ul>
     </div>
-
+    <br/>
     <div id="stressedLikert" class="question">
         <p>How <b>stressed</b> are you feeling?</p>
         <ul class="likertScale">
@@ -78,8 +98,13 @@
             <li> Very </li>
           </ul>
     </div>
+ 
+    <br/>
+    
+    
+        <button class="button" id='notNow'>Not now</button>
 
-    <button id='notNow'>Not now</button>
+    
     <script> require('./sampleRenderer.js')</script>
 </body>
 </html>

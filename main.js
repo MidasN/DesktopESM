@@ -43,9 +43,18 @@ function createWindow () {
   win.on('hide', function (event) {
       event.preventDefault();
       
-      // TODO: needs some kind of OS check, otherwise it'll throw an error
-      // app.dock.hide();
+      
       // app.setSkipTaskbar(true);
+      // app.dock.hide();
+      
+      // TODO: needs some kind of OS check, otherwise it'll throw an error
+      // apparently no errors are thrown when running not platform spec functions??
+
+      //windows specific 
+      
+     // app.setSkipTaskbar(true);
+
+      app.dock.hide();
 
       tray = createTray();
 

@@ -6,15 +6,31 @@ const participantId = JSON.parse(setupData).participantId
 // TAKING SCREENSHOT
 // Video stream
 desktopCapturer.getSources({ types: ['window', 'screen'] }).then(async sources => {
-  console.log(sources)
-  let screen = sources[0]
+  
+  //me fooling around w multiple screens
+  var nodeConsole = require('console');
+  var myConsole = new nodeConsole.Console(process.stdout, process.stderr);
+   
+ 
+  var screens = new Array();
+  var i = 0;
+  while (sources[i].name.search("Screen")>-1){
+    screens[i] = sources[i];
+      i++;
+  }
+
+  myConsole.log("Number of screens detected: "+ screens.length);
+
+  
+  
+
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({
+    var stream0 = await navigator.mediaDevices.getUserMedia({
       audio: false,
       video: {
         mandatory: {
           chromeMediaSource: 'desktop',
-          chromeMediaSourceId: screen.id,
+          chromeMediaSourceId: screens[0].id,
           minWidth: 1280,
           maxWidth: 2560,
           minHeight: 720,
@@ -22,8 +38,9 @@ desktopCapturer.getSources({ types: ['window', 'screen'] }).then(async sources =
         }
       }
     })
-    handleStream(stream)
+    handleStream(stream0)
   } catch (e) {
+    myConsole.log("something went wrong");
     handleError(e)
   }
   return
