@@ -42,7 +42,7 @@ node_modules/
 jspm_packages/
 
 # data files
-data
+data/
 
 # TypeScript v1 declaration files
 typings/
