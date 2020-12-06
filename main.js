@@ -1,7 +1,9 @@
 const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron')
 const fs = require('fs')
+const glob = require('glob')
 
-const setupFile = fs.existsSync('./data/participantSetup.json')
+const fileName = glob.sync('./data/*-setup.json')
+const setupFile =  fs.existsSync(fileName[0])
 
 // auto start app when computer boots
 let AutoLaunch = require('auto-launch');

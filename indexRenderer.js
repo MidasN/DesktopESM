@@ -16,10 +16,19 @@ function finishSetup() {
         setupTime: time
     }
 
-    fs.writeFile('./data/participantSetup.json', JSON.stringify(data), 'utf8', (err) => {
+    fs.writeFile('./data/'+ participantId + '-setup.json', JSON.stringify(data), 'utf8', (err) => {
         if (err) throw err;
         console.log('The file has been saved!');
     });
+
+    fetch('https://desktopesm.herokuapp.com/submit-data', { 
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      }).then(function(response) {
+        // check for response, otherwise try again?
+        
+      })  
   
     hide()
     sendMessageToMain()
@@ -34,9 +43,3 @@ function sendMessageToMain() {
         message: 'start countdown'
       });
 }
- 
-
-// ipcRenderer.on('sendRendererMessage', (event, props) => {
-//     console.log({event, props});
-// });
-  

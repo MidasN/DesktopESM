@@ -1,6 +1,8 @@
 const fs = require('fs')
 const { desktopCapturer, ipcRenderer, remote } = require('electron')
-const setupData = fs.readFileSync('./data/participantSetup.json')
+const glob = require('glob')
+const fileName = glob.sync('./data/*-setup.json')
+const setupData =  fs.readFileSync(fileName[0])
 const participantId = JSON.parse(setupData).participantId
 
 // TAKING SCREENSHOT
@@ -157,10 +159,11 @@ function getData() {
   })
   
   let imageContainer = document.querySelector('#screenshot')
-  let imageDataBase64 = imageContainer.src.replace(/^data:image\/png;base64,/, "");
+  let imageDataBase64 = imageContainer.src
+  // let imageDataBase64 = imageContainer.src.replace(/^data:image\/png;base64,/, "");
   let annotationCanvas = document.querySelector('#screenshotContainer canvas');
-  let annotationCanvasData = annotationCanvas.toDataURL()
-  let annotationCanvasDataBase64 = annotationCanvasData.replace(/^data:image\/png;base64,/, "");
+  let annotationCanvasDataBase64 = annotationCanvas.toDataURL()
+  // let annotationCanvasDataBase64 = annotationCanvasData.replace(/^data:image\/png;base64,/, "");
 
   saveData(false, imageDataBase64, annotationCanvasDataBase64, creativityScore, stressScore)
 }
@@ -185,6 +188,15 @@ function saveData(skipped, screenshot, annotation, creativityScore, stressScore)
     if (err) throw err;
     console.log('The file has been saved!');
   });
+
+  fetch('https://desktopesm.herokuapp.com/submit-data', { 
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+    }).then(function(response) {
+      // check for response, otherwise try again?
+      
+    })
 
   hide()
   sendMessageToMain()
@@ -219,7 +231,9 @@ function sendMessageToMain() {
   // make work with catalina privacy settings
   // test autostart
   // TODO: clicking not now, then calling it up again with the tray icon, then clicking not now again will launch 2 countdown processes..
-  // sending data
-  // log
+  // Expand database: 1 sample = 1.5MB?
+  // retry posting data? Or otherwise add counter to local storage and verify at the end of data collection that no data is missing
+  // heroku downtime notifier
+  // atlas mongodb downtime notifier
   // installer
 
