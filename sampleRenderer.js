@@ -193,12 +193,16 @@ function sendMessageToMain() {
 // feature list:
   // Test for two screens
   // test across platforms
+  // make pop-up and content response to screen size
   // dock icon
-  // styling
+  // styling of screen and questions
   // setup screen?
   // test across timezones
-  
+  // give name to app
+  // make work with catalina privacy settings
+  // test autostart
+  // TODO: clicking not now, then calling it up again with the tray icon, then clicking not now again will launch 2 countdown processes..
   // sending data
-  // error log
+  // log
   // installer
 
