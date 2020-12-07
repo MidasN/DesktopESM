@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron')
+const { app, BrowserWindow, screen, Tray, Menu, ipcMain } = require('electron')
 const fs = require('fs')
 const glob = require('glob')
 
@@ -31,18 +31,26 @@ app.whenReady().then(createWindow)
 
 // Initialising the window
 function createWindow () {
+
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize
+  
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: width / 2,
+    height: height / 2,
     frame: false, 
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true
-    },
+    }
+    
     // skipTaskbar: true
   })
+  
+  win.setAlwaysOnTop(true, "floating", 1);
+  win.setVisibleOnAllWorkspaces(true);
+  // win.setResizable(false)
 
-  win.on('hide', function (event) {
+  win.on('minimize', function (event) {
       event.preventDefault();
       
       
@@ -139,19 +147,23 @@ function startCountdown() {
   const samplingTime = currentTime + interval
   
   console.log('start countdown:' + interval +'ms')
-  setTimeout(startSampling, interval)
+  startSampling()
+  // setTimeout(startSampling, interval)
 }
 
 let minTime = 8;
-let maxTime = 24;
+let maxTime = 20;
 
 function startSampling() {
   const date = new Date()
   const hour = date.getHours()
 
-  if (hour > minTime && hour < maxTime) {
+  if (hour >= minTime && hour <= maxTime) {
     console.log('start sampling')
     win.loadFile('sample.html')
+  } else {
+    console.log('outside hours: restart countdown')
+    startCountdown()
   }
 }
 

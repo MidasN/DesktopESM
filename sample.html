@@ -4,15 +4,41 @@
     <title>Electron</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            width: 100%;
+            margin: 0 auto;
+            position: absolute;
+            /* padding-top: 30px; */
+        }
+
         #screenshotContainer {
-            position: relative;
+            /* position: relative;     */
+            width: 100%;
+            margin: 0 auto;
         }
 
-        #screenshotContainer canvas, #screenshot {
-            position: absolute
+        .screenshot {
+            display: inline
+        }
+        .screenshot canvas {
+            position: absolute;
+            margin: 0 auto;   
         }
 
-        video {
+        #videoContainer {
             position: absolute;
             top: -10000px;
             left: -10000px;
@@ -30,13 +56,14 @@
         .button {
             background-color: #d4d4d4;
             color: black;
-            box-shadow: 0 0.2rem 0.6rem 0 gray;
+            /* box-shadow: 0 0.2rem 0.6rem 0 gray; */
             border-radius: 0;
             text-align: center;
             border:none;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             padding: 10px 20px 10px 20px;
-            
+            margin-left: 30px;
+            margin-top: 10px;
 
         }
 
@@ -58,10 +85,10 @@
 <body style="background: white;">
 
 
-    <video></video>
-    <div id="screenshotContainer">
-        <img id="screenshot">
-    </div>
+    <div id="videoContainer"></div>
+    
+
+    <div id="screenshotContainer"></div>
 
     <div id="creativeLikert" class="question">
         <p>How <b>creative</b> are you feeling?</p>
