@@ -147,8 +147,8 @@ function startCountdown() {
   const samplingTime = currentTime + interval
   
   console.log('start countdown:' + interval +'ms')
-  startSampling()
-  // setTimeout(startSampling, interval)
+  // startSampling()
+  setTimeout(startSampling, interval)
 }
 
 let minTime = 8;

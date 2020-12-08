@@ -128,7 +128,8 @@ function createScreenshot(id) {
   // let windowWidth = Math.floor(resizedWidth * 1.1)
   // currentWindow.setSize(windowWidth, windowHeight)
   // currentWindow.center()
-  // video.remove()
+  
+  video.remove()
 }
 
 function handleError(e) {
@@ -254,6 +255,8 @@ function sendMessageToMain() {
 // feature list:
   // Test for two screens
   // test autostart
+  
+  // Might be an upload problem with heroku: https://devcenter.heroku.com/articles/request-timeout#uploading-large-files
 
   // make pop-up and content response to screen size
   // it seems larger screenshots end up blurrier than shots of smaller screens?
