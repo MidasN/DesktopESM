@@ -253,30 +253,44 @@ function sendMessageToMain() {
 }
 
 // feature list:
-  // Test for two screens
-  // test autostart
-  
+  // JONAS
+  // Center all content vertically and horizontally
+  // add AU logo + fonts
+  // "Annotate the screen" text
+  // add numbers to likert scales
+  // Style setup page: 
+  //  - change setup text, 
+  //  - change fonts,
+  //  - add logo, 
+  //  - center vertical+horizontal, 
+  //  - add info text about withdrawal+gdpr
+  //  - add option for participants to indicate starting + ending time of sampling
+     
+  // Packaging stuff:
+  //  - give name to app
+  //  - make work with catalina privacy settings (test whether it asks permissions for our app specifically)
+  //  - installer
+
+  // MIDAS:
   // Might be an upload problem with heroku: https://devcenter.heroku.com/articles/request-timeout#uploading-large-files
-
-  // make pop-up and content response to screen size
-  // it seems larger screenshots end up blurrier than shots of smaller screens?
-  // styling of screen and questions
   // the window shouldn't pop up until all content is done loading. Right now the extra screenshots get added later..
-
-  // dock/tray: figure out what we want to show (minimise vs hide) and make it work for that. Right now it's both
-  // TODO: clicking not now, then calling it up again with the tray icon, then clicking not now again will launch 2 countdown processes..
+  // Add check that picture is annotated before hiding popup
+  // stress test server: make sure it has try/catch and doesn't crash easily
+  // retry posting data (wait for server response)
   // add a timeout for sampling if no answer received
-
-  // retry posting data? Or otherwise add counter to local storage and verify at the end of data collection that no data is missing
-
-  // test across timezones
-  // test across platforms
-
-  // give name to app
-  // make work with catalina privacy settings
-  // setup screen?
-  // installer
-
+  // add check that it isn't sampling on the weekend
+  // test autostart
+  // Make pop-up window full sized (main.js)
+  // make setup screen hideable (so participants can go find their prolific ID)
+  // Hide app in dock; show in tray > make tray contextual menu only about closing
+  
   // heroku downtime notifier
   // atlas mongodb downtime notifier
   // upgrade heroku & mongodb
+
+
+  // PROLIFIC/SURVEY XACT
+  // Disclaimer that they are able to share at least 30% of their work
+  // Training screenshots
+  // GPDR etc etc
+  // test across platforms
