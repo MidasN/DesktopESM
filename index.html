@@ -4,18 +4,71 @@
     <title>Electron</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <style>
-        
+        @font-face {
+         font-family: aupassatalight;
+         src: url(fonts/AUPassata_Light.ttf);
+         }
+         @font-face {
+         font-family: aupassatabold;
+         src: url(fonts/AUPassata_Bold.ttf);
+         }
+
+         * {
+             font-family: aupassatalight;
+         }
+         h1 {
+             font-family: aupassatabold;
+         }
+         body{
+             margin-left: 15%;
+             margin-right: 15%;
+             margin-top: 5%;
+         }
+         .button {
+            background-color: #d4d4d4;
+            color: black;
+            /* box-shadow: 0 0.2rem 0.6rem 0 gray; */
+            border-radius: 0;
+            text-align: center;
+            border:none;
+            font-family: aupassatalight, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            padding: 10px 20px 10px 20px;
+            margin-left: 30px;
+            margin-top: 10px;
+
+        }
+        img {
+            width: 15%;
+            float: right;
+            float: bottom;
+            
+        }
+        .gdpr {
+            font-size: small;
+        }
+        a {
+            text-decoration: none; 
+            color: navy;
+        }
 
     </style>
 </head>
 <body style="background: white;">
-    <h1>Welcome to the study</h1>
+    <h1>Setup the study</h1>
     
+    <p>This application will ask you for a rating of creativity and stress from a 1-9 point scale at random times throughout the day (08:00-18:00) and capture a screenshot of the participant’s screen, on which you will be asked to annotate what application or window you were working with.  </p>
+    <p>The study is part of the research project <a href="https://projects.au.dk/creativetools/">Creative Tools, 129060532</a>, at Department of Digital Design and Information Studies at Aarhus University, Denmark. </p>
+
+    <br/>
+    <p class="gdpr">We comply with the General Data Protection Regulation and we do not share your personal data with anyone outside of the department. Participation is voluntary and you may at any time withdraw your consent to the processing of personal data. This can be done by sending an email to Jonas Frich, at <a href="mailto:frich@cc.au.dk">frich@cc.au.dk</a> If you withdraw your consent, this will take effect as from the time of withdrawal and will not affect the legality of our processing up to this time.
+    </p>
+    <br/>
     <label for="fid">Prolific ID:</label>
     <input type="text" id="fid" name="fprolificid">
 
-    <button id='finishBtn'>Finish</button>
+    <button id='finishBtn' class="button">Start</button>
 
+    <img src="icons/1200px-Aarhus_University_seal.svg.png">
     <script> require('./indexRenderer.js')</script>
 </body>
 </html>
