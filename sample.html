@@ -4,6 +4,15 @@
     <title>Electron</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <style>
+        @font-face {
+         font-family: aupassatalight;
+         src: url(fonts/AUPassata_Light.ttf);
+         }
+         @font-face {
+         font-family: aupassatabold;
+         src: url(fonts/AUPassata_Bold.ttf);
+         }
+
         html, body {
             margin: 0;
             padding: 0;
@@ -23,7 +32,9 @@
             position: absolute;
             /* padding-top: 30px; */
         }
-
+        b {
+            font-family: aupassatabold;
+        }
         #screenshotContainer {
             /* position: relative;     */
             width: 100%;
@@ -48,9 +59,19 @@
             text-align: center;
             clear: left;
             display: block;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-family: aupassatalight, ap-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             margin:auto;
             width: 50%;
+        }
+        .annotatetext {
+            font-family: aupassatalight, ap-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: small;
+            margin-left:20%;
+            margin-right: 20%;
+            margin-bottom: 20px;
+            text-align: center;
+            opacity: 1;
+            color: #C73A41;
         }
 
         .button {
@@ -60,7 +81,7 @@
             border-radius: 0;
             text-align: center;
             border:none;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-family: aupassatalight, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             padding: 10px 20px 10px 20px;
             margin-left: 30px;
             margin-top: 10px;
@@ -70,8 +91,8 @@
         .likertScale li {
             float: left;
             list-style-type: none;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            text-align: center;
+            font-family: aupassatalight, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            
             
         }
 
@@ -90,39 +111,127 @@
 
     <div id="screenshotContainer"></div>
 
+    <p class="annotatetext">Please indicate what application/windows you were using in the screenshot above, by clicking on the screenshots (multiple clicks allowed).</p>
+    
+    
     <div id="creativeLikert" class="question">
+        
         <p>How <b>creative</b> are you feeling?</p>
         <ul class="likertScale">
             <li> Not at all </li>
-            <li><input type="radio" name="creative" value="1" /></li>
-            <li><input type="radio" name="creative" value="2" /></li>
-            <li><input type="radio" name="creative" value="3" /></li>
-            <li><input type="radio" name="creative" value="4" /></li>
-            <li><input type="radio" name="creative" value="5" /></li>
-            <li><input type="radio" name="creative" value="6" /></li>
-            <li><input type="radio" name="creative" value="7" /></li>
-            <li><input type="radio" name="creative" value="8" /></li>
-            <li><input type="radio" name="creative" value="9" /></li>
-            <li><input type="radio" name="creative" value="10" /></li>
-            <li> Very </li>
+            
+            <li>
+                <label>1 <br/>
+                    <input type="radio" name="creative" value="1" />
+                </label>
+            </li>
+            <li> 
+                <label>2 <br/>  
+                    <input type="radio" name="creative" value="2"/>
+                </label>
+            </li>
+            <li>
+                <label>3 <br/>
+                    <input type="radio" name="creative" value="3" />
+                </label>
+            </li>
+            <li>
+                <label>4 <br/>
+                    <input type="radio" name="creative" value="4" />
+                </label>
+            </li>
+            <li>
+                <label>5 <br/>
+                    <input type="radio" name="creative" value="5" />
+                </label>
+            </li>
+            <li>
+                <label>6 <br/>
+                    <input type="radio" name="creative" value="6" />
+                </label>
+            </li>
+            <li>
+                <label>7 <br/>
+                    <input type="radio" name="creative" value="7" />
+                </label>
+            </li>
+            <li>
+                <label>8 <br/>
+                    <input type="radio" name="creative" value="8" />
+                </label>
+            </li>
+            <li>
+                <label>9 <br/>
+                    <input type="radio" name="creative" value="9" />
+                </label>
+            </li>
+            <li>
+                <label>10  <br/>
+                    <input type="radio" name="creative" value="10" />
+                </label>
+            </li>
+            <li> Very</li>
           </ul>
     </div>
+    <br/>
+    <br/>
     <br/>
     <div id="stressedLikert" class="question">
         <p>How <b>stressed</b> are you feeling?</p>
         <ul class="likertScale">
             <li> Not at all </li>
-            <li><input type="radio" name="stressed" value="1" /></li>
-            <li><input type="radio" name="stressed" value="2" /></li>
-            <li><input type="radio" name="stressed" value="3" /></li>
-            <li><input type="radio" name="stressed" value="4" /></li>
-            <li><input type="radio" name="stressed" value="5" /></li>
-            <li><input type="radio" name="stressed" value="6" /></li>
-            <li><input type="radio" name="stressed" value="7" /></li>
-            <li><input type="radio" name="stressed" value="8" /></li>
-            <li><input type="radio" name="stressed" value="9" /></li>
-            <li><input type="radio" name="stressed" value="10" /></li>
-            <li> Very </li>
+            
+            <li>
+                <label>1 <br/>
+                    <input type="radio" name="stressed" value="1" />
+                </label>
+            </li>
+            <li> 
+                <label>2 <br/>  
+                    <input type="radio" name="stressed" value="2"/>
+                </label>
+            </li>
+            <li>
+                <label>3 <br/>
+                    <input type="radio" name="stressed" value="3" />
+                </label>
+            </li>
+            <li>
+                <label>4 <br/>
+                    <input type="radio" name="stressed" value="4" />
+                </label>
+            </li>
+            <li>
+                <label>5 <br/>
+                    <input type="radio" name="stressed" value="5" />
+                </label>
+            </li>
+            <li>
+                <label>6 <br/>
+                    <input type="radio" name="stressed" value="6" />
+                </label>
+            </li>
+            <li>
+                <label>7 <br/>
+                    <input type="radio" name="stressed" value="7" />
+                </label>
+            </li>
+            <li>
+                <label>8 <br/>
+                    <input type="radio" name="stressed" value="8" />
+                </label>
+            </li>
+            <li>
+                <label>9 <br/>
+                    <input type="radio" name="stressed" value="9" />
+                </label>
+            </li>
+            <li>
+                <label>10  <br/>
+                    <input type="radio" name="stressed" value="10" />
+                </label>
+            </li>
+            <li> Very</li>
           </ul>
     </div>
  

@@ -97,6 +97,7 @@ function createScreenshot(id) {
 
   function addCircle(e) {
     console.log('canvas clicked')
+    document.querySelector('.annotatetext').style.opacity = 0;
     let c = canvasOverlay.getContext('2d');
     let bounds = e.target.getBoundingClientRect();
     let x = e.clientX - bounds.left;
@@ -104,7 +105,7 @@ function createScreenshot(id) {
 
     c.beginPath();
     c.arc(x, y, 10, 0, Math.PI * 2, false);
-    c.fillStyle = "red"
+    c.fillStyle = "#C73A41"
     c.fill();
   }
 
@@ -254,16 +255,16 @@ function sendMessageToMain() {
 
 // feature list:
   // JONAS
-  // Center all content vertically and horizontally
-  // add AU logo + fonts
-  // "Annotate the screen" text
-  // add numbers to likert scales
-  // Style setup page: 
-  //  - change setup text, 
-  //  - change fonts,
-  //  - add logo, 
-  //  - center vertical+horizontal, 
-  //  - add info text about withdrawal+gdpr
+  // Center all content vertically and horizontally -- wait for full screen
+  // 
+  // 
+  //
+  // 
+  //  
+  //  
+  //   
+  //   
+  //  
   //  - add option for participants to indicate starting + ending time of sampling
      
   // Packaging stuff:
