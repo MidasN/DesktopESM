@@ -35,8 +35,8 @@ function createWindow () {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize
   
   win = new BrowserWindow({
-    width: width / 2,
-    height: height / 2,
+    width: width,
+    height: height,
     frame: false, 
     webPreferences: {
       enableRemoteModule: true,
@@ -46,9 +46,9 @@ function createWindow () {
     // skipTaskbar: true
   })
   
-  win.setAlwaysOnTop(true, "floating", 1);
+  // win.setAlwaysOnTop(true, "floating", 1);
   win.setVisibleOnAllWorkspaces(true);
-  // win.setResizable(false)
+  win.setResizable(false)
 
   win.on('minimize', function (event) {
       event.preventDefault();
@@ -153,12 +153,15 @@ function startCountdown() {
 
 let minTime = 8;
 let maxTime = 20;
+let minDay = 1 //Monday
+let maxDay = 5 //Friday
 
 function startSampling() {
   const date = new Date()
   const hour = date.getHours()
+  const day = date.getDay()
 
-  if (hour >= minTime && hour <= maxTime) {
+  if (hour >= minTime && hour <= maxTime && day >= minDay && day <= maxDay) {
     console.log('start sampling')
     win.loadFile('sample.html')
   } else {

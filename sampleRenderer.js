@@ -49,7 +49,6 @@ function handleStream(stream, id) {
   let video = document.createElement('video')
   video.id = 'video-'+elementId
   video.srcObject = stream
-  
 
   video.addEventListener('loadedmetadata', function (e) {
     video.play();
@@ -98,6 +97,8 @@ function createScreenshot(id) {
   function addCircle(e) {
     console.log('canvas clicked')
     document.querySelector('.annotatetext').style.opacity = 0;
+    document.getElementById('likerts').classList.add('show');
+
     let c = canvasOverlay.getContext('2d');
     let bounds = e.target.getBoundingClientRect();
     let x = e.clientX - bounds.left;
@@ -107,6 +108,8 @@ function createScreenshot(id) {
     c.arc(x, y, 10, 0, Math.PI * 2, false);
     c.fillStyle = "#C73A41"
     c.fill();
+    
+    checkIfRequirementsMet()
   }
 
 
@@ -145,27 +148,51 @@ let creativityRadioButtons = document.querySelectorAll("#creativeLikert input")
 creativityRadioButtons.forEach((radioButton) => {
   radioButton.addEventListener('click', (e) => {
     console.log('creativity clicked')
-    checkIfRadioButtonChecked(stressRadioButtons)
+    checkIfRequirementsMet(stressRadioButtons)
   });
 });
 
 stressRadioButtons.forEach((radioButton) => {
   radioButton.addEventListener('click', (e) => {
     console.log('stress clicked')
-    checkIfRadioButtonChecked(creativityRadioButtons)
+    checkIfRequirementsMet(creativityRadioButtons)
   });
 });
 
-function checkIfRadioButtonChecked(likert) {
-  console.log('check radio buttons')
+function checkIfRequirementsMet() {
+  console.log('check radio buttons & canvas')
+  let canvasAnnotated = checkIfCanvasAnnotated()
+  let stressChecked = checkIfRadioButtonsChecked(stressRadioButtons)
+  let creativityChecked = checkIfRadioButtonsChecked(creativityRadioButtons)
 
+  console.log(canvasAnnotated, stressChecked, creativityChecked)
+  if (canvasAnnotated && stressChecked && creativityChecked) {
+    console.log('get data')
+    getData()
+  }
+}
+
+function checkIfRadioButtonsChecked(likert) {
+  let checked = false
   likert.forEach((radioButton) => {
     if (radioButton.checked) {
       console.log('both checked')
-      getData()
+      checked = true
       return
     }
   })
+  return checked
+}
+
+function checkIfCanvasAnnotated() {
+  let canvas = document.querySelector('canvas')
+  const context = canvas.getContext('2d');
+  console.log(context)
+  const pixelBuffer = new Uint32Array(
+    context.getImageData(0, 0, canvas.width, canvas.height).data.buffer
+  );
+
+  return pixelBuffer.some(color => color !== 0);
 }
 
 function getData() {
@@ -273,18 +300,20 @@ function sendMessageToMain() {
   //  - installer
 
   // MIDAS:
-  // Might be an upload problem with heroku: https://devcenter.heroku.com/articles/request-timeout#uploading-large-files
-  // the window shouldn't pop up until all content is done loading. Right now the extra screenshots get added later..
-  // Add check that picture is annotated before hiding popup
-  // stress test server: make sure it has try/catch and doesn't crash easily
-  // retry posting data (wait for server response)
-  // add a timeout for sampling if no answer received
-  // add check that it isn't sampling on the weekend
-  // test autostart
   // Make pop-up window full sized (main.js)
+  // Add check that picture is annotated before hiding popup
   // make setup screen hideable (so participants can go find their prolific ID)
-  // Hide app in dock; show in tray > make tray contextual menu only about closing
+  // add check that it isn't sampling on the weekend
+
   
+  // add a timeout for sampling if no answer received
+  // the window shouldn't pop up until all content is done loading. Right now the extra screenshots get added later..
+  // retry posting data (wait for server response)
+  // test autostart
+  // Hide app in dock; show in tray > make tray contextual menu only about closing
+
+  // stress test server: make sure it has try/catch and doesn't crash easily
+  // Might be an upload problem with heroku: https://devcenter.heroku.com/articles/request-timeout#uploading-large-files
   // heroku downtime notifier
   // atlas mongodb downtime notifier
   // upgrade heroku & mongodb

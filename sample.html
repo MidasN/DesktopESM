@@ -88,6 +88,14 @@
 
         }
 
+        #likerts {
+            display: none;
+        }
+        
+        .show {
+            display: block !important;
+        }
+        
         .likertScale li {
             float: left;
             list-style-type: none;
@@ -113,128 +121,128 @@
 
     <p class="annotatetext">Please indicate what application/windows you were using in the screenshot above, by clicking on the screenshots (multiple clicks allowed).</p>
     
-    
-    <div id="creativeLikert" class="question">
-        
-        <p>How <b>creative</b> are you feeling?</p>
-        <ul class="likertScale">
-            <li> Not at all </li>
+    <div id='likerts'>
+        <div id="creativeLikert" class="question">
             
-            <li>
-                <label>1 <br/>
-                    <input type="radio" name="creative" value="1" />
-                </label>
-            </li>
-            <li> 
-                <label>2 <br/>  
-                    <input type="radio" name="creative" value="2"/>
-                </label>
-            </li>
-            <li>
-                <label>3 <br/>
-                    <input type="radio" name="creative" value="3" />
-                </label>
-            </li>
-            <li>
-                <label>4 <br/>
-                    <input type="radio" name="creative" value="4" />
-                </label>
-            </li>
-            <li>
-                <label>5 <br/>
-                    <input type="radio" name="creative" value="5" />
-                </label>
-            </li>
-            <li>
-                <label>6 <br/>
-                    <input type="radio" name="creative" value="6" />
-                </label>
-            </li>
-            <li>
-                <label>7 <br/>
-                    <input type="radio" name="creative" value="7" />
-                </label>
-            </li>
-            <li>
-                <label>8 <br/>
-                    <input type="radio" name="creative" value="8" />
-                </label>
-            </li>
-            <li>
-                <label>9 <br/>
-                    <input type="radio" name="creative" value="9" />
-                </label>
-            </li>
-            <li>
-                <label>10  <br/>
-                    <input type="radio" name="creative" value="10" />
-                </label>
-            </li>
-            <li> Very</li>
-          </ul>
+            <p>How <b>creative</b> are you feeling?</p>
+            <ul class="likertScale">
+                <li> Not at all </li>
+                
+                <li>
+                    <label>1 <br/>
+                        <input type="radio" name="creative" value="1" />
+                    </label>
+                </li>
+                <li> 
+                    <label>2 <br/>  
+                        <input type="radio" name="creative" value="2"/>
+                    </label>
+                </li>
+                <li>
+                    <label>3 <br/>
+                        <input type="radio" name="creative" value="3" />
+                    </label>
+                </li>
+                <li>
+                    <label>4 <br/>
+                        <input type="radio" name="creative" value="4" />
+                    </label>
+                </li>
+                <li>
+                    <label>5 <br/>
+                        <input type="radio" name="creative" value="5" />
+                    </label>
+                </li>
+                <li>
+                    <label>6 <br/>
+                        <input type="radio" name="creative" value="6" />
+                    </label>
+                </li>
+                <li>
+                    <label>7 <br/>
+                        <input type="radio" name="creative" value="7" />
+                    </label>
+                </li>
+                <li>
+                    <label>8 <br/>
+                        <input type="radio" name="creative" value="8" />
+                    </label>
+                </li>
+                <li>
+                    <label>9 <br/>
+                        <input type="radio" name="creative" value="9" />
+                    </label>
+                </li>
+                <li>
+                    <label>10  <br/>
+                        <input type="radio" name="creative" value="10" />
+                    </label>
+                </li>
+                <li> Very</li>
+            </ul>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <div id="stressedLikert" class="question">
+            <p>How <b>stressed</b> are you feeling?</p>
+            <ul class="likertScale">
+                <li> Not at all </li>
+                
+                <li>
+                    <label>1 <br/>
+                        <input type="radio" name="stressed" value="1" />
+                    </label>
+                </li>
+                <li> 
+                    <label>2 <br/>  
+                        <input type="radio" name="stressed" value="2"/>
+                    </label>
+                </li>
+                <li>
+                    <label>3 <br/>
+                        <input type="radio" name="stressed" value="3" />
+                    </label>
+                </li>
+                <li>
+                    <label>4 <br/>
+                        <input type="radio" name="stressed" value="4" />
+                    </label>
+                </li>
+                <li>
+                    <label>5 <br/>
+                        <input type="radio" name="stressed" value="5" />
+                    </label>
+                </li>
+                <li>
+                    <label>6 <br/>
+                        <input type="radio" name="stressed" value="6" />
+                    </label>
+                </li>
+                <li>
+                    <label>7 <br/>
+                        <input type="radio" name="stressed" value="7" />
+                    </label>
+                </li>
+                <li>
+                    <label>8 <br/>
+                        <input type="radio" name="stressed" value="8" />
+                    </label>
+                </li>
+                <li>
+                    <label>9 <br/>
+                        <input type="radio" name="stressed" value="9" />
+                    </label>
+                </li>
+                <li>
+                    <label>10  <br/>
+                        <input type="radio" name="stressed" value="10" />
+                    </label>
+                </li>
+                <li> Very</li>
+            </ul>
+        </div>
     </div>
-    <br/>
-    <br/>
-    <br/>
-    <div id="stressedLikert" class="question">
-        <p>How <b>stressed</b> are you feeling?</p>
-        <ul class="likertScale">
-            <li> Not at all </li>
-            
-            <li>
-                <label>1 <br/>
-                    <input type="radio" name="stressed" value="1" />
-                </label>
-            </li>
-            <li> 
-                <label>2 <br/>  
-                    <input type="radio" name="stressed" value="2"/>
-                </label>
-            </li>
-            <li>
-                <label>3 <br/>
-                    <input type="radio" name="stressed" value="3" />
-                </label>
-            </li>
-            <li>
-                <label>4 <br/>
-                    <input type="radio" name="stressed" value="4" />
-                </label>
-            </li>
-            <li>
-                <label>5 <br/>
-                    <input type="radio" name="stressed" value="5" />
-                </label>
-            </li>
-            <li>
-                <label>6 <br/>
-                    <input type="radio" name="stressed" value="6" />
-                </label>
-            </li>
-            <li>
-                <label>7 <br/>
-                    <input type="radio" name="stressed" value="7" />
-                </label>
-            </li>
-            <li>
-                <label>8 <br/>
-                    <input type="radio" name="stressed" value="8" />
-                </label>
-            </li>
-            <li>
-                <label>9 <br/>
-                    <input type="radio" name="stressed" value="9" />
-                </label>
-            </li>
-            <li>
-                <label>10  <br/>
-                    <input type="radio" name="stressed" value="10" />
-                </label>
-            </li>
-            <li> Very</li>
-          </ul>
-    </div>
- 
     <br/>
     
     
