@@ -12,9 +12,11 @@ const currentHeight = currentWindow.getSize()[1];
 
 // TAKING SCREENSHOT
 // Video stream
+let numberOfScreens = 0;
+
 desktopCapturer.getSources({ types: ['screen'] }).then(async sources => {
   myConsole.log("Number of screens detected: " + sources.length);
-
+  numberOfScreens = sources.length;
 
   for (i=0; i<sources.length;i++) {
     let id = sources[i].id
@@ -35,13 +37,12 @@ desktopCapturer.getSources({ types: ['screen'] }).then(async sources => {
       })
       handleStream(stream, id)
     } catch (e) {
-      myConsole.log("something went wrong!");
+      myConsole.log("ERROR: Processing screen: ", e);
       handleError(e)
     }
   }
   return
 })
-
 
 function handleStream(stream, id) {
   myConsole.log('stream being handled', stream)
@@ -53,14 +54,13 @@ function handleStream(stream, id) {
   video.addEventListener('loadedmetadata', function (e) {
     video.play();
     createScreenshot(elementId)
-    currentWindow.show()
   })
   
   let target = document.querySelector('#videoContainer')
   target.appendChild(video)
 }
 
-
+let numberOfScreenshotsAdded = 0;
 
 function createScreenshot(id) {
   myConsole.log('creating screenshot') 
@@ -92,26 +92,24 @@ function createScreenshot(id) {
   screenshotWrapper.appendChild(canvasOverlay)
 
   // Annotate image
-  canvasOverlay.addEventListener('click', addCircle)
-
-  function addCircle(e) {
-    console.log('canvas clicked')
-    document.querySelector('.annotatetext').style.opacity = 0;
-    document.getElementById('likerts').classList.add('show');
-
-    let c = canvasOverlay.getContext('2d');
-    let bounds = e.target.getBoundingClientRect();
-    let x = e.clientX - bounds.left;
-    let y = e.clientY - bounds.top;
-
-    c.beginPath();
-    c.arc(x, y, 10, 0, Math.PI * 2, false);
-    c.fillStyle = "#C73A41"
-    c.fill();
+  canvasOverlay.addEventListener('click', 
+    function (e) {
+      console.log('canvas clicked')
+      document.querySelector('.annotatetext').style.opacity = 0;
+      document.getElementById('likerts').classList.add('show');
     
-    checkIfRequirementsMet()
-  }
-
+      let c = canvasOverlay.getContext('2d');
+      let bounds = e.target.getBoundingClientRect();
+      let x = e.clientX - bounds.left;
+      let y = e.clientY - bounds.top;
+    
+      c.beginPath();
+      c.arc(x, y, 10, 0, Math.PI * 2, false);
+      c.fillStyle = "#C73A41"
+      c.fill();
+      
+      checkIfRequirementsMet()
+    })
 
   image.src = canvas.toDataURL()
   image.style.width = resizedWidth;
@@ -119,7 +117,7 @@ function createScreenshot(id) {
   
   screenshotWrapper.appendChild(image)
   document.querySelector('#screenshotContainer').appendChild(screenshotWrapper)
-
+  numberOfScreenshotsAdded++
 
   // TODO: this needs to be adjusted to set the width and height of the canvas container, which should be big enough to accommodate one or multiple screenshots
   // let canvasContainer = document.querySelector('#screenshotContainer')
@@ -134,12 +132,20 @@ function createScreenshot(id) {
   // currentWindow.center()
   
   video.remove()
+  showWindow()
+  // Start the timeout for when to hide the pop-up if not answered
+  setAnswerTimeout()
+}
+
+function showWindow() {
+  if (numberOfScreenshotsAdded === numberOfScreens) {
+    currentWindow.show()
+  }
 }
 
 function handleError(e) {
   console.log(e)
 }
-
 
 // APP INTERACTION
 let stressRadioButtons = document.querySelectorAll("#stressedLikert input")
@@ -168,7 +174,9 @@ function checkIfRequirementsMet() {
   console.log(canvasAnnotated, stressChecked, creativityChecked)
   if (canvasAnnotated && stressChecked && creativityChecked) {
     console.log('get data')
+    
     getData()
+    
   }
 }
 
@@ -185,14 +193,23 @@ function checkIfRadioButtonsChecked(likert) {
 }
 
 function checkIfCanvasAnnotated() {
-  let canvas = document.querySelector('canvas')
-  const context = canvas.getContext('2d');
-  console.log(context)
-  const pixelBuffer = new Uint32Array(
-    context.getImageData(0, 0, canvas.width, canvas.height).data.buffer
-  );
+  let canvasses = document.querySelectorAll('canvas')
 
-  return pixelBuffer.some(color => color !== 0);
+  let doesCanvasHaveContent = false;
+
+  for (canvas of canvasses) {
+    if (doesCanvasHaveContent === false) {
+      const context = canvas.getContext('2d');
+      console.log(context)
+      const pixelBuffer = new Uint32Array(
+        context.getImageData(0, 0, canvas.width, canvas.height).data.buffer
+      );
+      doesCanvasHaveContent = pixelBuffer.some(color => color !== 0);
+    }
+  }
+  
+  return doesCanvasHaveContent
+  
 }
 
 function getData() {
@@ -226,7 +243,6 @@ function getData() {
     screenshotsBase64.push(dataObject)
   }
   
-  
   saveData(false, screenshotsBase64, creativityScore, stressScore)
 }
 
@@ -259,13 +275,14 @@ function saveData(skipped, screenshotArray, creativityScore, stressScore) {
 
   })
 
+  clearAnswerTimeout()
   hide()
   sendMessageToMain()
 }
 
 function hide() {
-  const currentWindow = remote.getCurrentWindow()
-  console.log(currentWindow)
+  // const currentWindow = remote.getCurrentWindow()
+  // console.log(currentWindow)
   currentWindow.hide()
 }
 
@@ -278,6 +295,24 @@ function sendMessageToMain() {
   ipcRenderer.send('sendMainMessage', {
     message: 'start countdown'
   });
+}
+
+let answerTimeout;
+
+function setAnswerTimeout() {
+  myConsole.log('timeout set')
+  answerTimeout = setTimeout(function() {
+    if (currentWindow.isVisible()) {
+      myConsole.log('NO ANSWER: timed out')
+      hide()
+      sendMessageToMain()
+    }
+  }, 600000)
+}
+
+function clearAnswerTimeout() {
+  myConsole.log('ANSWERED: timeout cleared')
+  clearTimeout(answerTimeout)
 }
 
 // feature list:
@@ -304,10 +339,11 @@ function sendMessageToMain() {
   // Add check that picture is annotated before hiding popup
   // make setup screen hideable (so participants can go find their prolific ID)
   // add check that it isn't sampling on the weekend
-
   
   // add a timeout for sampling if no answer received
+  // make annotation check work for multiple screens
   // the window shouldn't pop up until all content is done loading. Right now the extra screenshots get added later..
+  
   // retry posting data (wait for server response)
   // test autostart
   // Hide app in dock; show in tray > make tray contextual menu only about closing
