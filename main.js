@@ -139,8 +139,8 @@ ipcMain.on('sendMainMessage', (event, props) => {
 function startCountdown() {
 // const samplingMin = 1800000 //30 minutes in ms
 // const samplingMax = 7200000 // 2hours in ms
-  const samplingMin = 10000 //10s
-  const samplingMax = 5000 // 5s
+  const samplingMin = 5000 //5s
+  const samplingMax = 10000 //10m
 
   const currentTime = Date.now()
   const interval = Math.floor(Math.random() * (samplingMax - samplingMin + 1) + samplingMin);

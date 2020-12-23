@@ -10,6 +10,22 @@ let myConsole = new nodeConsole.Console(process.stdout, process.stderr);
 const currentWidth = currentWindow.getSize()[0];
 const currentHeight = currentWindow.getSize()[1];
 
+// defining new fetch function that retries on failure
+const fetchPlus = (url, options = {}, retries) =>
+  fetch(url, options)
+    .then(res => {
+      if (res.ok) {
+        myConsole.log('data sucessfully POSTed to database')
+        return
+      }
+      if (retries > 0) {
+        myConsole.log('ERROR: retrying POSTing data to database')
+        return setTimeout(fetchPlus, 10000, url, options, retries - 1)
+      }
+      throw new Error(res.status)
+    })
+    .catch(error => myConsole.error(error.message))
+
 // TAKING SCREENSHOT
 // Video stream
 let numberOfScreens = 0;
@@ -266,14 +282,12 @@ function saveData(skipped, screenshotArray, creativityScore, stressScore) {
     console.log('The file has been saved!');
   });
 
-  fetch('https://desktopesm.herokuapp.com/submit-data', {
+  fetchPlus('https://desktopesm.herokuapp.com/submit-data', {
     method: 'POST',
     body: JSON.stringify(data),
     headers: { "Content-type": "application/json; charset=UTF-8" }
-  }).then(function (response) {
-    // check for response, otherwise try again?
-
-  })
+  }, 4)
+  
 
   clearAnswerTimeout()
   hide()
@@ -339,12 +353,12 @@ function clearAnswerTimeout() {
   // Add check that picture is annotated before hiding popup
   // make setup screen hideable (so participants can go find their prolific ID)
   // add check that it isn't sampling on the weekend
-  
   // add a timeout for sampling if no answer received
   // make annotation check work for multiple screens
   // the window shouldn't pop up until all content is done loading. Right now the extra screenshots get added later..
-  
   // retry posting data (wait for server response)
+
+  
   // test autostart
   // Hide app in dock; show in tray > make tray contextual menu only about closing
 
