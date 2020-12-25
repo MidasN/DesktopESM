@@ -347,6 +347,7 @@ function clearAnswerTimeout() {
   //  - give name to app
   //  - make work with catalina privacy settings (test whether it asks permissions for our app specifically)
   //  - installer
+  //  - add logo to app
 
   // MIDAS:
   // Make pop-up window full sized (main.js)
@@ -357,17 +358,17 @@ function clearAnswerTimeout() {
   // make annotation check work for multiple screens
   // the window shouldn't pop up until all content is done loading. Right now the extra screenshots get added later..
   // retry posting data (wait for server response)
-
-  
-  // test autostart
-  // Hide app in dock; show in tray > make tray contextual menu only about closing
-
-  // stress test server: make sure it has try/catch and doesn't crash easily
   // Might be an upload problem with heroku: https://devcenter.heroku.com/articles/request-timeout#uploading-large-files
+  
+  // Hide app in dock; show in tray > make tray contextual menu only about closing
+  // Add 'about' option to tray menu 
+  // Add 'show' option to tray menu when it is in background
+
+  // test autostart
+  // stress test server: make sure it has try/catch and doesn't crash easily
   // heroku downtime notifier
   // atlas mongodb downtime notifier
   // upgrade heroku & mongodb
-
 
   // PROLIFIC/SURVEY XACT
   // Disclaimer that they are able to share at least 30% of their work
