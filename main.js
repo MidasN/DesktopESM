@@ -1,8 +1,9 @@
 const { app, BrowserWindow, screen, Tray, Menu, ipcMain } = require('electron')
 const fs = require('fs')
 const glob = require('glob')
+const path = require('path');
 
-const fileName = glob.sync('./data/*-setup.json')
+const fileName = glob.sync(path.join(__dirname, './data/*-setup.json'))
 const setupFile =  fs.existsSync(fileName[0])
 
 // auto start app when computer boots
@@ -53,6 +54,7 @@ function createWindow () {
     frame: false, 
     webPreferences: {
       enableRemoteModule: true,
+      contextIsolation: false,
       nodeIntegration: true
     }
     // skipTaskbar: true
@@ -98,7 +100,7 @@ function createTray() {
       }
   ]);
 
-  tray = new Tray('./icons/icon.png');
+  tray = new Tray(path.join(__dirname, './icons/icon.png'));
   tray.setToolTip('DesktopESM');
   tray.setContextMenu(contextMenu);
 }
@@ -133,7 +135,7 @@ function startCountdown() {
 
 function startSampling() {
   const minTime = 8;
-  const maxTime = 20;
+  const maxTime = 24;
 
   const date = new Date()
   const hour = date.getHours()
@@ -144,7 +146,9 @@ function startSampling() {
 
   if (hour >= minTime && hour <= maxTime && day >= minDay && day <= maxDay) {
     console.log('start sampling')
-    win.loadFile('sample.html')
+    console.log()
+   
+    win.loadFile(path.join(__dirname, './sample.html'))
   } else {
     console.log('outside hours: restart countdown')
     startCountdown()

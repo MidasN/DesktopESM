@@ -1,14 +1,29 @@
+
+
+
+
 const fs = require('fs')
+
+
 const { desktopCapturer, ipcRenderer, remote } = require('electron')
 const glob = require('glob')
-const fileName = glob.sync('./data/*-setup.json')
+const path = require('path');
+
+const fileName = glob.sync(path.join(__dirname, './data/*-setup.json'))
+
+
+
+///note to self: this is wher its broken->
 const setupData = fs.readFileSync(fileName[0])
+
+
 const participantId = JSON.parse(setupData).participantId
 const currentWindow = remote.getCurrentWindow()
 let nodeConsole = require('console');
 let myConsole = new nodeConsole.Console(process.stdout, process.stderr);
 const currentWidth = currentWindow.getSize()[0];
 const currentHeight = currentWindow.getSize()[1];
+
 
 // defining new fetch function that retries on failure
 const fetchPlus = (url, options = {}, retries) =>
@@ -277,7 +292,7 @@ function saveData(skipped, screenshotArray, creativityScore, stressScore) {
     "creativityScore": creativityScore,
     "stressScore": stressScore
   }
-  fs.writeFile('./data/' + participantId + '-' + time + '.json', JSON.stringify(data), 'utf8', (err) => {
+  fs.writeFile( path.join(__dirname, './data/' + participantId + '-' + time + '.json'), JSON.stringify(data), 'utf8', (err) => {
     if (err) throw err;
     console.log('The file has been saved!');
   });
