@@ -33,7 +33,7 @@ function finishSetup() {
         setupTime: time
     }
 
-    fs.writeFile(__dirname + './data/'+ participantId + '-setup.json', JSON.stringify(data), 'utf8', (err) => {
+    fs.writeFile(__dirname + '/data/'+ participantId + '-setup.json', JSON.stringify(data), 'utf8', (err) => {
         if (err) throw err;
         console.log('The file has been saved!');
     });
