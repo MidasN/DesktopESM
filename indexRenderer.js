@@ -54,6 +54,6 @@ function hide() {
 
 function sendMessageToMain() {
     ipcRenderer.send('sendMainMessage', {
-        message: 'start countdown'
+        message: 'start countdown from index'
       });
 }

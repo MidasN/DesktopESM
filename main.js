@@ -29,7 +29,7 @@ app.on('ready', function (event) {
   createTray();
   //check if user has already set up
   if (setupFile) {
-    win.hide()
+    win.hide() 
     startCountdown()
   } else {
     win.loadFile('index.html')
@@ -113,18 +113,21 @@ app.on('window-all-closed', () => {
 
 // Start the countdown to sample when receiving message from the renderer
 ipcMain.on('sendMainMessage', (event, props) => {
-  if (props.message === 'start countdown') {
+  if (props.message === 'start countdown from index') {
+    startSampling()
     startCountdown()
+  } else if(props.message === 'start countdown' ){
+       startCountdown()
   }
   // win.webContents.send('sendRendererMessage', { result: true });
 });
 
 
 function startCountdown() {
-// const samplingMin = 1800000 //30 minutes in ms
-// const samplingMax = 7200000 // 2hours in ms
-  const samplingMin = 5000 //5s
-  const samplingMax = 10000 //10m
+// const samplingMin = 1800000 //30 minutes in ms 5000 //5s
+// const samplingMax = 7200000 // 2hours in ms 10000 //10m
+  const samplingMin = 1800000 //30 minutes
+  const samplingMax = 3600000 // 1hour
 
   const currentTime = Date.now()
   const interval = Math.floor(Math.random() * (samplingMax - samplingMin + 1) + samplingMin);
