@@ -127,7 +127,7 @@ function startCountdown() {
 // const samplingMin = 1800000 //30 minutes in ms 5000 //5s
 // const samplingMax = 7200000 // 2hours in ms 10000 //10m
   const samplingMin = 1800000 //30 minutes
-  const samplingMax = 3600000 // 1hour
+  const samplingMax = 5400000 // 1hour
 
   const currentTime = Date.now()
   const interval = Math.floor(Math.random() * (samplingMax - samplingMin + 1) + samplingMin);
@@ -138,7 +138,7 @@ function startCountdown() {
 
 function startSampling() {
   const minTime = 8;
-  const maxTime = 24;
+  const maxTime = 18;
 
   const date = new Date()
   const hour = date.getHours()
