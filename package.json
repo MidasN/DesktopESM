@@ -1,7 +1,7 @@
 {
   "name": "desktopesm",
   "version": "1.0.0",
-  "description": "",
+  "description": "Experience Sampling tool from Aarhus University - prolific study",
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/MidasN/DesktopESM.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jonas Frich & Midas Nouwens",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MidasN/DesktopESM/issues"
