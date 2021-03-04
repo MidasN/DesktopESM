@@ -118,7 +118,7 @@ app.on('window-all-closed', () => {
 // Start the countdown to sample when receiving message from the renderer
 ipcMain.on('sendMainMessage', (event, props) => {
   if (props.message === 'start countdown from index') {
-    startSampling()
+    startSampling(true)
     // startCountdown()
   } else if(props.message === 'start countdown' ){
        startCountdown()
@@ -130,6 +130,8 @@ ipcMain.on('sendMainMessage', (event, props) => {
 function startCountdown() {
 // const samplingMin = 1800000 //30 minutes in ms 5000 //5s
 // const samplingMax = 7200000 // 2hours in ms 10000 //10m
+// const samplingMin = 5000 //30 minutes
+// const samplingMax = 10000 // 1hour
   const samplingMin = 1800000 //30 minutes
   const samplingMax = 5400000 // 1hour
 
@@ -141,7 +143,7 @@ function startCountdown() {
   setTimeout(startSampling, interval)
 }
 
-function startSampling() {
+function startSampling(setup) {
   const minTime = 8;
   const maxTime = 18;
 
@@ -152,7 +154,10 @@ function startSampling() {
   const minDay = 1 //Monday
   const maxDay = 5 //Friday
 
-  if (hour >= minTime && hour <= maxTime && day >= minDay && day <= maxDay) {
+  if (setup === true) {
+    console.log('start setup sampling')
+    win.loadFile(path.join(__dirname, './sample.html'))
+  } else if (hour >= minTime && hour <= maxTime && day >= minDay && day <= maxDay) {
     console.log('start sampling')
     console.log()
    
