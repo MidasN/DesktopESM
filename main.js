@@ -119,7 +119,7 @@ app.on('window-all-closed', () => {
 ipcMain.on('sendMainMessage', (event, props) => {
   if (props.message === 'start countdown from index') {
     startSampling()
-    startCountdown()
+    // startCountdown()
   } else if(props.message === 'start countdown' ){
        startCountdown()
   }
@@ -132,6 +132,7 @@ function startCountdown() {
 // const samplingMax = 7200000 // 2hours in ms 10000 //10m
   const samplingMin = 1800000 //30 minutes
   const samplingMax = 5400000 // 1hour
+
 
   const currentTime = Date.now()
   const interval = Math.floor(Math.random() * (samplingMax - samplingMin + 1) + samplingMin);

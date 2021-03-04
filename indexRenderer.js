@@ -12,14 +12,18 @@ const fetchPlus = (url, options = {}, retries) =>
   fetch(url, options)
     .then(res => {
       if (res.ok) {
-        myConsole.log('sample data sucessfully POSTed to database')
+        myConsole.log('index data sucessfully POSTed to database')
         return
       }
       if (retries > 0) {
-        myConsole.log('ERROR: retrying POSTing data to database')
+        myConsole.log('ERROR: retrying POSTing index data to database')
         return setTimeout(fetchPlus, 10000, url, options, retries - 1)
       }
       throw new Error(res.status)
+    })
+    .then(res => {
+      sendMessageToMain()
+      return
     })
     .catch(error => myConsole.error(error.message))
 
@@ -48,7 +52,6 @@ function finishSetup() {
     }, 4)
 
     hide()
-    sendMessageToMain()
 }
 function hide() {
     const currentWindow = remote.getCurrentWindow()
