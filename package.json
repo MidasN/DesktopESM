@@ -40,7 +40,8 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "desktopesm"
+            "name": "desktopesm",
+            "loadingGif": "icons/installing.gif"
           }
         },
         {
