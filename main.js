@@ -7,17 +7,19 @@ const fileName = glob.sync(path.join(__dirname, './data/*-setup.json'))
 const setupFile =  fs.existsSync(fileName[0])
 
 // auto start app when computer boots
-let AutoLaunch = require('auto-launch');
-let autoLauncher = new AutoLaunch({
-    name: "DesktopESM"
-});
-// Checking if autoLaunch is enabled, if not then enabling it.
-autoLauncher.isEnabled().then(function(isEnabled) {
-  if (isEnabled) return;
-   autoLauncher.enable();
-}).catch(function (err) {
-  throw err;
-});
+// let AutoLaunch = require('auto-launch');
+// let autoLauncher = new AutoLaunch({
+//     name: "DesktopESM"
+// });
+// // Checking if autoLaunch is enabled, if not then enabling it.
+// autoLauncher.isEnabled().then(function(isEnabled) {
+//   if (isEnabled) return;
+//    autoLauncher.enable();
+// }).catch(function (err) {
+//   throw err;
+// });
+
+app.setLoginItemSettings({openAtLogin: true})
 
 // App starts
 let win;
@@ -59,6 +61,8 @@ function createWindow () {
     }
     // skipTaskbar: true
   })
+
+  // win.webContents.openDevTools()
   
   // win.setAlwaysOnTop(true, "floating", 1);
   win.setVisibleOnAllWorkspaces(true);

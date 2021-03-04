@@ -1,9 +1,4 @@
-
-
-
-
 const fs = require('fs')
-
 
 const { desktopCapturer, ipcRenderer, remote } = require('electron')
 const glob = require('glob')
@@ -11,11 +6,8 @@ const path = require('path');
 
 const fileName = glob.sync(path.join(__dirname, './data/*-setup.json'))
 
-
-
 ///note to self: this is wher its broken->
 const setupData = fs.readFileSync(fileName[0])
-
 
 const participantId = JSON.parse(setupData).participantId
 const currentWindow = remote.getCurrentWindow()
@@ -30,7 +22,7 @@ const fetchPlus = (url, options = {}, retries) =>
   fetch(url, options)
     .then(res => {
       if (res.ok) {
-        myConsole.log('data sucessfully POSTed to database')
+        myConsole.log('sample data sucessfully POSTed to database')
         return
       }
       if (retries > 0) {
@@ -292,9 +284,9 @@ function saveData(skipped, screenshotArray, creativityScore, stressScore) {
     "creativityScore": creativityScore,
     "stressScore": stressScore
   }
-  fs.writeFile( path.join(__dirname, './data/' + participantId + '-' + time + '.json'), JSON.stringify(data), 'utf8', (err) => {
+  fs.writeFile(path.join(__dirname, './data/' + participantId + '-' + time + '.json'), JSON.stringify(data), 'utf8', (err) => {
     if (err) throw err;
-    console.log('The file has been saved!');
+    console.log('The sample file has been saved!');
   });
 
   fetchPlus('https://desktopesm.herokuapp.com/submit-data', {
@@ -302,7 +294,6 @@ function saveData(skipped, screenshotArray, creativityScore, stressScore) {
     body: JSON.stringify(data),
     headers: { "Content-type": "application/json; charset=UTF-8" }
   }, 4)
-  
 
   clearAnswerTimeout()
   hide()
