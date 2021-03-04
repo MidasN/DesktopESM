@@ -64,7 +64,7 @@ function createWindow () {
 
   // win.webContents.openDevTools()
   
-  // win.setAlwaysOnTop(true, "floating", 1);
+  // win.setAlwaysOnTop(true, "pop-up-menu", -1);
   win.setVisibleOnAllWorkspaces(true);
   win.setResizable(false)
 }

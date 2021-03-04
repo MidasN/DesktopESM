@@ -52,9 +52,7 @@ desktopCapturer.getSources({ types: ['screen'] }).then(async sources => {
             chromeMediaSource: 'desktop',
             chromeMediaSourceId: id,
             minWidth: currentWidth,
-            // maxWidth: 2560,
             minHeight: currentHeight
-            // maxHeight: 1600
           }
         }
       })

@@ -1,4 +1,4 @@
-const { ipcRenderer, remote } = require('electron')
+const { desktopCapturer, ipcRenderer, remote } = require('electron')
 const fs = require('fs')
 
 let finishBtn = document.querySelector('#finishBtn')
@@ -27,6 +27,9 @@ const fetchPlus = (url, options = {}, retries) =>
     })
     .catch(error => myConsole.error(error.message))
 
+
+// Trigger screen capture permissions
+desktopCapturer.getSources({ types: ['screen'] })
     
 // TODO: add check that they have actually filled in all the stuff for the setup
 function finishSetup() {
