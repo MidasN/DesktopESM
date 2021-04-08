@@ -40,7 +40,8 @@ function finishSetup() {
 
     let data = {
         participantId: participantId,
-        setupTime: time
+        setupTime: time,
+        setupLocation: __dirname
     }
 
     fs.writeFile(__dirname + '/data/'+ participantId + '-setup.json', JSON.stringify(data), 'utf8', (err) => {

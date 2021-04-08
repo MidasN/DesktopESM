@@ -104,7 +104,7 @@ function createScreenshot(id) {
   canvas.getContext("2d").drawImage(video, 0, 0);
 
   let canvasOverlay = document.createElement('canvas')
-  let resizeRatio = 0.3
+  let resizeRatio = 0.475
   let resizedWidth = videoWidth * resizeRatio
   let resizedHeight = videoHeight * resizeRatio
   canvasOverlay.width = resizedWidth
