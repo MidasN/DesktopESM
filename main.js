@@ -133,7 +133,7 @@ function startCountdown() {
 // const samplingMin = 5000 //30 minutes
 // const samplingMax = 10000 // 1hour
   const samplingMin = 1800000 //30 minutes
-  const samplingMax = 5400000 // 1hour
+  const samplingMax = 5400000 // 1.5 hour
 
 
   const currentTime = Date.now()
